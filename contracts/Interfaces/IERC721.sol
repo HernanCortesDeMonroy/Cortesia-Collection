@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
 import "./IERC165.sol";
@@ -10,7 +11,7 @@ interface IERC721{
 
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
-    function balanceOf(address owner) external view returns(unt256 balance);
+    function balanceOf(address owner) external view returns(uint256 balance);
 
     function ownerOf(uint256 tokenId) external view returns(address owner);
 
@@ -23,7 +24,7 @@ interface IERC721{
     function transferFrom (
         address from,
         address to,
-        uint236 tokenId
+        uint256 tokenId
     ) external;
 
     function approve(address to, uint256 tokenId) external;
