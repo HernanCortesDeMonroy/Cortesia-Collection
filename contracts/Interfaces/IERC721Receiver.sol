@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.16;
 
-contract IERC721Receiver {
+interface IERC721Receiver {
     function onERC721Received(
         address operator,
         address from,

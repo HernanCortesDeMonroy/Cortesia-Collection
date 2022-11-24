@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+//import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import "../Interfaces/IERC165.sol";
 
 contract CheckerERC165 is IERC165{
     mapping(bytes4 => bool) internal supportedInterfaces;
