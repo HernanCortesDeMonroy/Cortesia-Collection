@@ -214,8 +214,6 @@ describe("Cortesia", function() {
     it("Should allow to set operator", async() => {
         const owner = creator.address;
         const oper = operator.address;
-        const to = receiver.address;
-        const tokenId = 3;
 
         await contract.connect(creator).setApprovalForAll(oper, true);
         const isApproved = await contract.isApprovedForAll(owner, oper);
@@ -223,11 +221,9 @@ describe("Cortesia", function() {
         assert(isApproved);
     })
 
-    it("Should allow to set operator", async() => {
+    it("Should allow to unset operator", async() => {
         const owner = creator.address;
         const oper = operator.address;
-        const to = receiver.address;
-        const tokenId = 3;
 
         await contract.connect(creator).setApprovalForAll(oper, true);
         await contract.connect(creator).setApprovalForAll(oper, false);
@@ -236,7 +232,37 @@ describe("Cortesia", function() {
         expect(isApproved).to.be.equal(false);
     })
 
+    it("Operator can send a coin", async() => {
+        const owner = creator.address;
+        const oper = operator.address;
+        const to = receiver.address;
+        const tokenId = 3;
 
+        await contract.connect(creator).setApprovalForAll(oper, true);
+        await contract.connect(operator).transferFrom(owner, to, tokenId);
+
+        const gotReceiver = await contract.ownerOf(tokenId);
+        expect(gotReceiver).to.be.equal(to);
+    })
+
+    it("Operator can't send coin twice", async() => {
+        const owner = creator.address;
+        const oper = operator.address;
+        const to = receiver.address;
+        const tokenId = 3;
+        let success = false;
+
+        await contract.connect(creator).setApprovalForAll(oper, true);
+        await contract.connect(operator).transferFrom(owner, to, tokenId);
+        try {
+            await contract.connect(operator).transferFrom(owner, to, tokenId);
+            success = true;
+        } catch(err) {
+            success = false;
+        }
+
+        expect(success).to.be.equal(false);
+    })
 
 
 })
